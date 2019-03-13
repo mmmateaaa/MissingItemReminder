@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MissingItemReminder</string>
+    <string name="select_category">Select category</string>
+    <string name="my_items">My Missing Items</string>
+</resources>
