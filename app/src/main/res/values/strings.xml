@@ -7,4 +7,8 @@
     <string name="enter_name">Enter name</string>
     <string name="enter_description">Enter description</string>
     <string name="all_category">All categories</string>
+    <string-array name="default_categories">
+        <item>Borrowed items</item>
+        <item>Seasonal items</item>
+    </string-array>
 </resources>

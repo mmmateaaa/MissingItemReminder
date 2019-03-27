@@ -1,18 +1,13 @@
 package mat06.sim.missingitemreminder;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mat06.sim.missingitemreminder.adapters.SpinnerAdapter;
+import mat06.sim.missingitemreminder.database.RealmDatabase;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -33,73 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    private SpinnerAdapter spinnerAdapter = new SpinnerAdapter() {
-        private List<CategoryItem> categoryItemList = new ArrayList<>();
-        @Override
-        public View getDropDownView(int i, View view, ViewGroup viewGroup) {
-            return null;
-        }
-
-        @Override
-        public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-        }
-
-        @Override
-        public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
-        }
-
-        @Override
-        public int getCount() {
-            return categoryItemList.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            CategoryViewHolder viewHolder;
-            if(view == null) {
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.spinner_category_item, viewGroup, false);
-                viewHolder = new CategoryViewHolder();
-                viewHolder.tvCategory = view.findViewById(R.id.tv_category);
-                view.setTag(viewHolder);
-            } else {
-                viewHolder = (CategoryViewHolder) view.getTag();
-            }
-            viewHolder.tvCategory.setText(categoryItemList.get(i).getCategoryName());
-            return view;
-        }
-
-        @Override
-        public int getItemViewType(int i) {
-            return 0;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-    };
+    private SpinnerAdapter spinnerAdapter = new mat06.sim.missingitemreminder.adapters.SpinnerAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onStart() {
         super.onStart();
+        spinnerAdapter.addData(createSpinnerAdapterData(RealmDatabase.getAllCategories(this)));
         filterItems(spinner.getSelectedItemPosition());
     }
 
@@ -144,7 +76,4 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    private class CategoryViewHolder {
-        TextView tvCategory;
-    }
 }
