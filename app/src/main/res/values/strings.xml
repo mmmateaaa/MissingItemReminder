@@ -11,4 +11,6 @@
         <item>Borrowed items</item>
         <item>Seasonal items</item>
     </string-array>
+    <!-- Add Item Activity -->
+    <string name="empty_entry">Field is empty</string>
 </resources>
