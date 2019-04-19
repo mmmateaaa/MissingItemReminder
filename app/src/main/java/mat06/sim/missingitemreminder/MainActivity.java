@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +16,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mat06.sim.missingitemreminder.adapters.RecyclerAdapter;
 import mat06.sim.missingitemreminder.adapters.SpinnerAdapter;
 import mat06.sim.missingitemreminder.database.RealmDatabase;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private static final int TYPE_ALL_CATEGORIES = 0;
 
     @BindView(R.id.s_category)
     Spinner spinner;
@@ -30,13 +34,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    private SpinnerAdapter spinnerAdapter = new mat06.sim.missingitemreminder.adapters.SpinnerAdapter();
+    private RecyclerAdapter adapter = new RecyclerAdapter();
+    private SpinnerAdapter spinnerAdapter = new SpinnerAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
@@ -62,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @OnClick(R.id.fab)
     void onClick(View view) {
-        Intent toAddItemActicity = new Intent(this, AddItemActivity.class);
-        startActivity(toAddItemActicity);
+        Intent toAddItemActivity = new Intent(this, AddItemActivity.class);
+        startActivity(toAddItemActivity);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        
+        filterItems(i);
     }
 
     @Override

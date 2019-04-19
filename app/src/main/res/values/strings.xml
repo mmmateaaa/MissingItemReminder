@@ -13,4 +13,5 @@
     </string-array>
     <!-- Add Item Activity -->
     <string name="empty_entry">Field is empty</string>
+    <string name="empty">Current item list is empty</string>
 </resources>
