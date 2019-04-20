@@ -19,11 +19,11 @@ import butterknife.OnClick;
 import mat06.sim.missingitemreminder.adapters.RecyclerAdapter;
 import mat06.sim.missingitemreminder.adapters.SpinnerAdapter;
 import mat06.sim.missingitemreminder.database.RealmDatabase;
+import mat06.sim.missingitemreminder.models.AdapterWrapper;
 import mat06.sim.missingitemreminder.models.CategoryItem;
+import mat06.sim.missingitemreminder.models.MissingItem;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-    private static final int TYPE_ALL_CATEGORIES = 0;
 
     @BindView(R.id.s_category)
     Spinner spinner;
@@ -59,6 +59,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void filterItems(int position) {
         SpinnerAdapter spinnerAdapter = (SpinnerAdapter) spinner.getAdapter();
+        adapter.addData(createRecyclerAdapterData(RealmDatabase.getMissingItems()));
+    }
+
+    private List<AdapterWrapper> createRecyclerAdapterData(List<MissingItem> items) {
+        List<AdapterWrapper> list = new ArrayList<>();
+        if (items.isEmpty()) {
+            list.add(new AdapterWrapper(R.layout.cell_empty, null));
+        } else {
+            for (MissingItem item: items) {
+                list.add(new AdapterWrapper(R.layout.cell_missing_item, item));
+            }
+        }
+        return list;
     }
 
     private List<CategoryItem> createSpinnerAdapterData(List<CategoryItem> categoryItemList) {
