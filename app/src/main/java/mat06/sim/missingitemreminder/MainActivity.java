@@ -23,7 +23,7 @@ import mat06.sim.missingitemreminder.models.AdapterWrapper;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, RecyclerAdapter.OnAdapterClick {
 
     @BindView(R.id.s_category)
     Spinner spinner;
