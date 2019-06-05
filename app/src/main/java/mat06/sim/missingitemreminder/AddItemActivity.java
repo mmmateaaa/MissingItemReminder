@@ -39,7 +39,7 @@ public class AddItemActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void loadMapActivity() {
+    public void loadMapFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, new MapFragment(), MapFragment.TAG);
         fragmentTransaction.addToBackStack(MapFragment.TAG);
