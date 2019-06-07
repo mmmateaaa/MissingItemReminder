@@ -125,6 +125,14 @@ public class DescribeMissingItemFragment extends Fragment implements AdapterView
         dialog.show(getFragmentManager(), dialog.getTag());
     }
 
+    @Override
+    public void saveCustomCategory(String category) {
+        RealmDatabase.storeCategory(new CategoryItem(category));
+        missingItem.setCategory(category);
+        ((SpinnerAdapter) spinner.getAdapter()).addNewData(RealmDatabase.getAllCategories(getContext()));
+        spinner.setSelection(getPreselectPosition(missingItem.getCategory()));
+    }
+
     @OnClick(R.id.fab)
     void onFabClick() {
         if(validate(etName.getText().toString(), etDescription.getText().toString())) {

@@ -14,6 +14,17 @@ import mat06.sim.missingitemreminder.models.MissingItem;
 
 public class RealmDatabase {
 
+    public static void storeCategory(final CategoryItem categoryItem) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(@NonNull Realm realm) {
+                realm.copyToRealmOrUpdate(categoryItem);
+            }
+        });
+        realm.close();
+    }
+
     public static List<CategoryItem> getAllCategories(Context context) {
         Realm realm = Realm.getDefaultInstance();
         List<CategoryItem> categoryItemList = realm.copyFromRealm(realm.where(CategoryItem.class).findAll());
