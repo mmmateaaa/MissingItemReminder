@@ -28,7 +28,7 @@ import mat06.sim.missingitemreminder.fragments.category_dialog.CategoryDialogLis
 import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
-public class DescribeMissingItemFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class DescribeMissingItemFragment extends Fragment implements AdapterView.OnItemSelectedListener, CategoryDialogListener {
     public static final String TAG = "DescribeMissingItemFragment";
 
     @BindView(R.id.et_name)

@@ -41,7 +41,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addItemActivity = (AddItemActivity) getActivity();
     }
 
     @Nullable
@@ -55,6 +54,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
 
+        addItemActivity = (AddItemActivity) getActivity();
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_maps);
         if (googleMap == null)
             mapFragment.getMapAsync(this);

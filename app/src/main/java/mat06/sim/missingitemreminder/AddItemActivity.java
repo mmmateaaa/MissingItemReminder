@@ -8,6 +8,7 @@ import mat06.sim.missingitemreminder.database.RealmDatabase;
 import mat06.sim.missingitemreminder.fragments.CameraFragment;
 import mat06.sim.missingitemreminder.fragments.DescribeMissingItemFragment;
 import mat06.sim.missingitemreminder.fragments.MapFragment;
+import mat06.sim.missingitemreminder.fragments.PreviewFragment;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
 public class AddItemActivity extends AppCompatActivity {
@@ -43,6 +44,13 @@ public class AddItemActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, new MapFragment(), MapFragment.TAG);
         fragmentTransaction.addToBackStack(MapFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
+    public void loadPreviewFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, new PreviewFragment(), PreviewFragment.TAG);
+        fragmentTransaction.addToBackStack(PreviewFragment.TAG);
         fragmentTransaction.commit();
     }
 

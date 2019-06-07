@@ -81,8 +81,7 @@ public class CameraFragment extends Fragment {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             addItemActivity.getItem().setImage(baos.toByteArray());
         }
-        RealmDatabase.storeMissingItem(addItemActivity.getItem());
-        addItemActivity.finish();
+        addItemActivity.loadPreviewFragment();
     }
 
     private void checkPermission() {
@@ -114,7 +113,7 @@ public class CameraFragment extends Fragment {
     }
 
     private void openCamera() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
