@@ -24,6 +24,7 @@ import mat06.sim.missingitemreminder.R;
 import mat06.sim.missingitemreminder.adapters.SpinnerAdapter;
 import mat06.sim.missingitemreminder.database.RealmDatabase;
 import mat06.sim.missingitemreminder.fragments.category_dialog.CategoryDialog;
+import mat06.sim.missingitemreminder.fragments.category_dialog.CategoryDialogListener;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
@@ -120,7 +121,7 @@ public class DescribeMissingItemFragment extends Fragment implements AdapterView
 
     private void showCategoryDialog() {
         CategoryDialog dialog = new CategoryDialog();
-        dialog.setListener(this);
+        dialog.setListener((CategoryDialogListener) this);
         dialog.show(getFragmentManager(), dialog.getTag());
     }
 
