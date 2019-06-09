@@ -2,6 +2,7 @@ package mat06.sim.missingitemreminder.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +11,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import mat06.sim.missingitemreminder.R;
 import mat06.sim.missingitemreminder.models.AdapterWrapper;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private OnAdapterClick listener;
     private Context context;
     private List<AdapterWrapper> data = new ArrayList<>();
+
+    public RecyclerAdapter(OnAdapterClick listener) {
+        this.listener = listener;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -48,7 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case R.layout.cell_missing_item:
                 MissingItem missingItem = data.get(position).getMissingItem();
                 MissingItemViewHolder missingItemViewHolder = (MissingItemViewHolder) viewHolder;
-                //Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
+               // Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
                 missingItemViewHolder.title.setText(missingItem.getName());
                 missingItemViewHolder.description.setText(missingItem.getDescription());
                 break;
@@ -67,7 +75,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface OnAdapterClick {
+        void onItemClick(AdapterWrapper adapterWrapper);
     }
+
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
         public EmptyViewHolder(View itemView) {
@@ -82,6 +92,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView title;
         @BindView(R.id.tv_description)
         TextView description;
+
         public MissingItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

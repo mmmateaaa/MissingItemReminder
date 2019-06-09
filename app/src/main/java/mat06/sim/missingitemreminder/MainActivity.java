@@ -23,18 +23,18 @@ import mat06.sim.missingitemreminder.models.AdapterWrapper;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
+import static mat06.sim.missingitemreminder.AddItemActivity.EXTRA_ID;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, RecyclerAdapter.OnAdapterClick {
 
     @BindView(R.id.s_category)
     Spinner spinner;
-
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    private RecyclerAdapter adapter = new RecyclerAdapter();
+    private RecyclerAdapter adapter = new RecyclerAdapter(this);
     private SpinnerAdapter spinnerAdapter = new SpinnerAdapter();
 
     @Override
@@ -97,4 +97,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @Override
+    public void onItemClick(AdapterWrapper adapterWrapper) {
+        Intent toAddItemActivity = new Intent(this, AddItemActivity.class);
+        toAddItemActivity.putExtra(EXTRA_ID, adapterWrapper.getMissingItem().getId());
+        startActivity(toAddItemActivity);
+    }
 }
