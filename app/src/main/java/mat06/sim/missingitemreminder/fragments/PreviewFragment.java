@@ -11,9 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.annotation.Nullable;
 
@@ -44,6 +49,7 @@ public class PreviewFragment extends Fragment implements OnMapReadyCallback {
 
     private AddItemActivity addItemActivity;
     private GoogleMap googleMap;
+    private Marker marker;
 
     private Unbinder unbinder;
 
@@ -87,7 +93,21 @@ public class PreviewFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        if (addItemActivity.getItem().getLatitude() != 0 && addItemActivity.getItem().getLongitude() != 0) {
+            LatLng latLng = new LatLng(addItemActivity.getItem().getLatitude(), addItemActivity.getItem().getLongitude());
+            addPin(latLng);
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11F));
+        }
+    }
 
+    private void addPin(LatLng latLng) {
+        if (marker == null) {
+            marker = googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin)));
+        } else
+            marker.setPosition(latLng);
     }
 
     @Override

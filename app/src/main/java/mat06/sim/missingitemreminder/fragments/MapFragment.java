@@ -16,8 +16,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.annotation.Nullable;
 
@@ -72,6 +74,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onMapClick(LatLng latLng) {
         this.latLng = latLng;
+        addPin(latLng);
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
@@ -79,14 +82,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         googleMap.setOnMapClickListener(this);
-        chechUserPermission();
+        checkUserPermission();
         if(addItemActivity.getItem().getLatitude() != 0 && addItemActivity.getItem().getLongitude() != 0) {
             LatLng latLng = new LatLng(addItemActivity.getItem().getLatitude(), addItemActivity.getItem().getLongitude());
+            addPin(latLng);
             googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
 
-    private void chechUserPermission() {
+    private void addPin(LatLng latLng) {
+        if(marker == null) {
+            marker = googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin)));
+        } else
+            marker.setPosition(latLng);
+    }
+
+    private void checkUserPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                 requestPermissions(new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION }, REQUEST_LOCATION);
@@ -94,6 +107,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 showUserLocation();
         } else {
             showUserLocation();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION && permissions.length != 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                showUserLocation();
         }
     }
 
