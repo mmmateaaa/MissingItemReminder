@@ -37,7 +37,6 @@ public class CameraFragment extends Fragment {
 
     @BindView(R.id.image_view)
     ImageView imageView;
-
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
@@ -69,7 +68,7 @@ public class CameraFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.fab)
+    @OnClick(R.id.iv_camera)
     void onCameraClick(View view) {
         checkPermission();
     }
