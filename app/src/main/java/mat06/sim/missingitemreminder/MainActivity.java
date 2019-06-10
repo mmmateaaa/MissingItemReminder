@@ -27,6 +27,7 @@ import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
 
 import static mat06.sim.missingitemreminder.AddItemActivity.EXTRA_ID;
+import static mat06.sim.missingitemreminder.AddItemActivity.EXTRA_TYPE;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, RecyclerAdapter.OnAdapterClick {
 
@@ -119,8 +120,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.preview) {
-                    Intent toAddItemActivity = new Intent(getBaseContext(), PreviewFragment.class);
+                    Intent toAddItemActivity = new Intent(getBaseContext(), AddItemActivity.class);
                     toAddItemActivity.putExtra(EXTRA_ID, missingItem.getId());
+                    toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_PREVIEW);
                     startActivity(toAddItemActivity);
                 }
                 return false;

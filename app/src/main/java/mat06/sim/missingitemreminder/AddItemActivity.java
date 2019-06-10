@@ -13,7 +13,11 @@ import mat06.sim.missingitemreminder.models.MissingItem;
 
 public class AddItemActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "EXTRA_ID";
+    public static final String EXTRA_TYPE = "EXTRA_TYPE";
+    public static final int TYPE_PREVIEW = 1;
+
     private MissingItem item;
+    private int type;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -26,7 +30,15 @@ public class AddItemActivity extends AppCompatActivity {
         } else
             item = new MissingItem(System.currentTimeMillis());
 
-        loadDescribeMissingItemFragment();
+        type = getIntent().getIntExtra(EXTRA_TYPE, TYPE_PREVIEW);
+        if (type == TYPE_PREVIEW) {
+            loadPreviewMissingItemFragment();
+        } else
+            loadDescribeMissingItemFragment();
+    }
+
+    private void loadPreviewMissingItemFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PreviewFragment(), PreviewFragment.TAG).commit();
     }
 
     void loadDescribeMissingItemFragment() {
