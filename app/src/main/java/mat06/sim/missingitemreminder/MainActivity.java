@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import butterknife.OnClick;
 import mat06.sim.missingitemreminder.adapters.RecyclerAdapter;
 import mat06.sim.missingitemreminder.adapters.SpinnerAdapter;
 import mat06.sim.missingitemreminder.database.RealmDatabase;
+import mat06.sim.missingitemreminder.fragments.PreviewFragment;
 import mat06.sim.missingitemreminder.models.AdapterWrapper;
 import mat06.sim.missingitemreminder.models.CategoryItem;
 import mat06.sim.missingitemreminder.models.MissingItem;
@@ -102,5 +105,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent toAddItemActivity = new Intent(this, AddItemActivity.class);
         toAddItemActivity.putExtra(EXTRA_ID, adapterWrapper.getMissingItem().getId());
         startActivity(toAddItemActivity);
+    }
+
+    @Override
+    public void onMenuClick(AdapterWrapper adapterWrapper, View view, int position) {
+        createMenu(view, position, adapterWrapper.getMissingItem());
+    }
+
+    private void createMenu(View view, int position, final MissingItem missingItem) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.inflate(R.menu.item_menu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.preview) {
+                    Intent toAddItemActivity = new Intent(getBaseContext(), PreviewFragment.class);
+                    toAddItemActivity.putExtra(EXTRA_ID, missingItem.getId());
+                    startActivity(toAddItemActivity);
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }

@@ -56,7 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case R.layout.cell_missing_item:
                 MissingItem missingItem = data.get(position).getMissingItem();
                 MissingItemViewHolder missingItemViewHolder = (MissingItemViewHolder) viewHolder;
-               // Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
+            //    Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
                 missingItemViewHolder.title.setText(missingItem.getName());
                 missingItemViewHolder.description.setText(missingItem.getDescription());
                 break;
@@ -76,8 +76,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public interface OnAdapterClick {
         void onItemClick(AdapterWrapper adapterWrapper);
+        void onMenuClick(AdapterWrapper adapterWrapper, View view, int position);
     }
-
 
     public class EmptyViewHolder extends RecyclerView.ViewHolder {
         public EmptyViewHolder(View itemView) {
@@ -86,8 +86,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class MissingItemViewHolder extends RecyclerView.ViewHolder {
-        //@BindView(R.id.image_view)
-        //ImageView imageView;
+       // @BindView(R.id.image_view)
+       // ImageView imageView;
         @BindView(R.id.tv_title)
         TextView title;
         @BindView(R.id.tv_description)
@@ -97,7 +97,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        @OnClick(R.id.rl_root)
+        void onRootClick(View view) {
+            listener.onItemClick(data.get(getAdapterPosition()));
+        }
+
+        @OnClick(R.id.iv_menu_icon)
+        void onMenuClick(View view) {
+            listener.onMenuClick(data.get(getAdapterPosition()), view, getAdapterPosition());
+        }
     }
-
-
 }

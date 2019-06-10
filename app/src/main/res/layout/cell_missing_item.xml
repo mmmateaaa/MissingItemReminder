@@ -18,6 +18,12 @@
         android:textStyle="bold"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/iv_menu_icon"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_dots"/>
 
     <TextView
         android:id="@+id/tv_description"

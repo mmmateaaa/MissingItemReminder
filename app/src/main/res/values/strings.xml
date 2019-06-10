@@ -22,4 +22,6 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="category">Category</string>
+    <string name="preview">Preview</string>
+    <string name="edit">Edit</string>
 </resources>
