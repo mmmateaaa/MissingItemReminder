@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         createMenu(view, position, adapterWrapper.getMissingItem());
     }
 
-    private void createMenu(View view, int position, final MissingItem missingItem) {
+    private void createMenu(View view, final int position, final MissingItem missingItem) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.inflate(R.menu.item_menu);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -124,7 +124,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     toAddItemActivity.putExtra(EXTRA_ID, missingItem.getId());
                     toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_PREVIEW);
                     startActivity(toAddItemActivity);
-                }
+                } else if (item.getItemId() == R.id.edit) {
+                    Intent toAddItemActivity = new Intent(getBaseContext(), AddItemActivity.class);
+                    toAddItemActivity.putExtra(EXTRA_ID, missingItem.getId());
+                    toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_EDIT);
+                    startActivity(toAddItemActivity);
+                } else
+                    RealmDatabase.removeItem(missingItem);
                 return false;
             }
         });

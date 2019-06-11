@@ -15,6 +15,7 @@ public class AddItemActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "EXTRA_ID";
     public static final String EXTRA_TYPE = "EXTRA_TYPE";
     public static final int TYPE_PREVIEW = 1;
+    public static final int TYPE_EDIT = 2;
 
     private MissingItem item;
     private int type;

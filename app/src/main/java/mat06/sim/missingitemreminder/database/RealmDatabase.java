@@ -77,4 +77,14 @@ public class RealmDatabase {
         realm.close();
         return missingItem;
     }
+
+    public static void removeItem(final MissingItem missingItem) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(@NonNull Realm realm) {
+                realm.where(MissingItem.class).equalTo(MissingItem.ID, missingItem.getId()).findAll().deleteAllFromRealm();
+            }
+        });
+    }
 }
