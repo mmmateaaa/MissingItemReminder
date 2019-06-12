@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @OnClick(R.id.fab)
     void onClick(View view) {
         Intent toAddItemActivity = new Intent(this, AddItemActivity.class);
+        toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_EDIT);
         startActivity(toAddItemActivity);
     }
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterWrapper adapterWrapper) {
         Intent toAddItemActivity = new Intent(this, AddItemActivity.class);
         toAddItemActivity.putExtra(EXTRA_ID, adapterWrapper.getMissingItem().getId());
+        toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_PREVIEW);
         startActivity(toAddItemActivity);
     }
 
@@ -129,8 +131,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     toAddItemActivity.putExtra(EXTRA_ID, missingItem.getId());
                     toAddItemActivity.putExtra(EXTRA_TYPE, AddItemActivity.TYPE_EDIT);
                     startActivity(toAddItemActivity);
-                } else
+                } else {
                     RealmDatabase.removeItem(missingItem);
+                    adapter.removeItem(position);
+                }
                 return false;
             }
         });

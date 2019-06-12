@@ -34,7 +34,7 @@ import mat06.sim.missingitemreminder.models.MissingItem;
 public class PreviewFragment extends Fragment implements OnMapReadyCallback {
     public static final String TAG = "PreviewFragment";
 
-    @BindView(R.id.tv_title)
+    @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_description)
     TextView tvDescription;

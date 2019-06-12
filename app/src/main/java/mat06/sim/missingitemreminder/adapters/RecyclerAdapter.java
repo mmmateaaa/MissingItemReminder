@@ -74,6 +74,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
+    public void removeItem(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public interface OnAdapterClick {
         void onItemClick(AdapterWrapper adapterWrapper);
         void onMenuClick(AdapterWrapper adapterWrapper, View view, int position);
