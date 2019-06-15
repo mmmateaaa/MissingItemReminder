@@ -31,6 +31,8 @@ import static mat06.sim.missingitemreminder.AddItemActivity.EXTRA_TYPE;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, RecyclerAdapter.OnAdapterClick {
 
+    private static final int TYPE_ALL_CATEGORIES = 0;
+
     @BindView(R.id.s_category)
     Spinner spinner;
     @BindView(R.id.recycler_view)
@@ -63,7 +65,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void filterItems(int position) {
         SpinnerAdapter spinnerAdapter = (SpinnerAdapter) spinner.getAdapter();
-        adapter.addData(createRecyclerAdapterData(RealmDatabase.getMissingItems()));
+        if (position == TYPE_ALL_CATEGORIES) {
+            adapter.addData(createRecyclerAdapterData(RealmDatabase.getMissingItems()));
+        } else if(position != -1) {
+            adapter.addData(createRecyclerAdapterData(RealmDatabase.queryMissingItemsByCategory(spinnerAdapter.getItem(position).getCategoryName())));
+        }
     }
 
     private List<AdapterWrapper> createRecyclerAdapterData(List<MissingItem> items) {

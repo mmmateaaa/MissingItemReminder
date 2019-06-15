@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideType;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case R.layout.cell_missing_item:
                 MissingItem missingItem = data.get(position).getMissingItem();
                 MissingItemViewHolder missingItemViewHolder = (MissingItemViewHolder) viewHolder;
-            //    Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
+                Glide.with(context).asBitmap().load(missingItem.getImage()).into(missingItemViewHolder.imageView);
                 missingItemViewHolder.title.setText(missingItem.getName());
                 missingItemViewHolder.description.setText(missingItem.getDescription());
                 break;
@@ -91,8 +92,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class MissingItemViewHolder extends RecyclerView.ViewHolder {
-       // @BindView(R.id.image_view)
-       // ImageView imageView;
+        @BindView(R.id.image_view)
+        ImageView imageView;
         @BindView(R.id.tv_title)
         TextView title;
         @BindView(R.id.tv_description)

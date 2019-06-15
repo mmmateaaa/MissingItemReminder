@@ -33,7 +33,7 @@
         android:layout_below="@+id/tv_title"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/select_category"
         android:textSize="12sp" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_category_hint"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp" />
 
     <android.support.v7.widget.RecyclerView
@@ -51,8 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/s_category"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp" />
 
     <android.support.design.widget.FloatingActionButton

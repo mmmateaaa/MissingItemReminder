@@ -8,8 +8,10 @@
     <string name="enter_description">Enter description</string>
     <string name="all_category">All categories</string>
     <string-array name="default_categories">
+        <item>Cloth</item>
         <item>Borrowed items</item>
         <item>Seasonal items</item>
+        <item>Everyday items</item>
     </string-array>
     <!-- Add Item Activity -->
     <string name="empty_entry">Field is empty</string>
@@ -25,4 +27,5 @@
     <string name="preview">Preview</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

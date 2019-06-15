@@ -87,4 +87,11 @@ public class RealmDatabase {
             }
         });
     }
+
+    public static List<MissingItem> queryMissingItemsByCategory(String categoryName) {
+        Realm realm = Realm.getDefaultInstance();
+        List<MissingItem> missingItems = realm.copyFromRealm(realm.where(MissingItem.class).equalTo(MissingItem.CATEGORY, categoryName).findAll());
+        realm.close();
+        return missingItems;
+    }
 }
