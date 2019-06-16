@@ -1,6 +1,6 @@
 package mat06.sim.missingitemreminder.models;
 
-public class AdapterWrapper {
+public class  AdapterWrapper {
     private int type;
     private MissingItem missingItem;
 
